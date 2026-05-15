@@ -18,6 +18,48 @@ define( 'WP_USE_THEMES', false );
 
 require '../../../wp-blog-header.php';
 
+// Define imagecreatefromfile function before it's used.
+if ( ! function_exists( 'imagecreatefromfile' ) ) {
+	/**
+	 * Create image resource from file.
+	 *
+	 * Creates a GD image resource from various image file formats (JPEG, PNG, GIF)
+	 * by automatically detecting the file type and using the appropriate GD function.
+	 *
+	 * @since 1.0.0
+	 * @param string $filename Path to the image file.
+	 * @return resource|false GD image resource on success, false on failure.
+	 * @throws InvalidArgumentException If file does not exist.
+	 */
+	function imagecreatefromfile( $filename ) {
+		try {
+			if ( ! file_exists( $filename ) ) {
+				throw new InvalidArgumentException( 'File "' . htmlentities( $filename ) . '" not found.' );
+			}
+			switch ( strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) ) ) {
+				case 'jpeg':
+				case 'jpg':
+					return imagecreatefromjpeg( $filename );
+				break;
+
+				case 'png':
+					return imagecreatefrompng( $filename );
+				break;
+
+				case 'gif':
+					return imagecreatefromgif( $filename );
+				break;
+
+				default:
+					throw new InvalidArgumentException( 'File "' . htmlentities( $filename ) . '" is not valid jpg, png or gif image.' );
+				break;
+			}
+		} catch ( Exception $e ) {
+			die( 'No image found' );
+		}
+	}
+}
+
 $webdados_fb = webdados_fb_run();
 
 if ( $webdados_fb ) {
@@ -180,46 +222,3 @@ if ( $webdados_fb ) {
 		}
 	}
 }
-
-
-
-if ( ! function_exists( 'imagecreatefromfile' ) ) :
-	/**
-	 * Create image resource from file.
-	 *
-	 * Creates a GD image resource from various image file formats (JPEG, PNG, GIF)
-	 * by automatically detecting the file type and using the appropriate GD function.
-	 *
-	 * @since 1.0.0
-	 * @param string $filename Path to the image file.
-	 * @return resource|false GD image resource on success, false on failure.
-	 * @throws InvalidArgumentException If file does not exist.
-	 */
-	function imagecreatefromfile( $filename ) {
-		try {
-			if ( ! file_exists( $filename ) ) {
-				throw new InvalidArgumentException( 'File "' . htmlentities( $filename ) . '" not found.' );
-			}
-			switch ( strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) ) ) {
-				case 'jpeg':
-				case 'jpg':
-					return imagecreatefromjpeg( $filename );
-				break;
-
-				case 'png':
-					return imagecreatefrompng( $filename );
-				break;
-
-				case 'gif':
-					return imagecreatefromgif( $filename );
-				break;
-
-				default:
-					throw new InvalidArgumentException( 'File "' . htmlentities( $filename ) . '" is not valid jpg, png or gif image.' );
-				break;
-			}
-		} catch ( Exception $e ) {
-			die( 'No image found' );
-		}
-	}
-	endif;

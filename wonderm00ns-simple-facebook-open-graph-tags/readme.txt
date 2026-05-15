@@ -6,7 +6,7 @@ Author URI: https://wpexperts.io/
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 3.3.9
+Stable tag: 3.4.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -138,6 +138,9 @@ Then set up our plugin as you wish and you're ready to go.
 We like to work with everybody, so (if you want to) our plugin can even integrate with Yoast SEO and use it's title, description and canonical URL on the Facebook and Twitter tags.
 
 == Changelog ==
+= 3.4.0 - May 14, 2026 =
+* Fixed undefined function issue when overlay PNG logo is enabled
+
 = 3.3.9 - Jan 28, 2026 =
 * Fixed a bug that caused RSS feeds to break.
 

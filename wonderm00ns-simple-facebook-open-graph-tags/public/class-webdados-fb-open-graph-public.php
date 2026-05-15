@@ -824,10 +824,13 @@ if ( ! class_exists( 'Webdados_FB_Public' ) ) :
 								}
 							}
 						}
-					} elseif ( 1 == intval( $this->options['fb_image_size_show'] ) && isset( $fb_image_size ) && is_array( $fb_image_size ) ) {
-						$html .= '<meta property="og:image:width" content="' . esc_attr( intval( $fb_image_size[0] ) ) . '"/>
-                            <meta property="og:image:height" content="' . esc_attr( intval( $fb_image_size[1] ) ) . '"/>
-                        ';
+					} else {
+						// Image Size - We only show the image size if we only have one image
+						if ( 1 == intval( $this->options['fb_image_size_show'] ) && isset( $fb_image_size ) && is_array( $fb_image_size ) ) {
+							$html .= '  <meta property="og:image:width" content="' . esc_attr( intval( $fb_image_size[0] ) ) . '"/>
+  <meta property="og:image:height" content="' . esc_attr( intval( $fb_image_size[1] ) ) . '"/>
+';
+						}
 					}
 						// Dates.
 					if ( 1 == intval( $this->options['fb_article_dates_show'] ) && '' != trim( $fb_article_pub_date ) ) {

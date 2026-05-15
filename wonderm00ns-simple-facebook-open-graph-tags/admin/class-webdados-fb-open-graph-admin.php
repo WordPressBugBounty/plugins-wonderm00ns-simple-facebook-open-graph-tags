@@ -142,7 +142,7 @@ if ( ! class_exists( 'Webdados_FB_Admin' ) ) :
 		 * @return array Modified array with settings link added.
 		 */
 		public function place_settings_link( $links ) {
-			$settings_link = '<a href="options-general.php?page=' . esc_attr( basename( __FILE__ ) ) . '">' . __( 'Settings', 'wonderm00ns-simple-facebook-open-graph-tags' ) . '</a>';
+			$settings_link = '<a href="options-general.php?page=ogatc-settings">' . __( 'Settings', 'wonderm00ns-simple-facebook-open-graph-tags' ) . '</a>';
 			// Place it before other links.
 			array_unshift( $links, $settings_link );
 			return $links;
