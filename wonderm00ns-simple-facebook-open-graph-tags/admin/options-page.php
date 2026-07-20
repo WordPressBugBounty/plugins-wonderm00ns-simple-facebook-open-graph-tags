@@ -49,6 +49,8 @@ if ( file_exists( $script_path ) ) {
 
 $out_link_utm = '?utm_source=' . urlencode( home_url() ) . '&amp;utm_medium=link&amp;utm_campaign=fb_og_wp_plugin';
 
+require_once __DIR__ . '/open-graph-platform-icons.php';
+
 ?>
 <div class="wrap" id="webdados_fb_admin">
 
@@ -56,8 +58,8 @@ $out_link_utm = '?utm_source=' . urlencode( home_url() ) . '&amp;utm_medium=link
 	<h1>
 		<?php echo esc_html( WEBDADOS_FB_PLUGIN_NAME ); ?> (<?php echo esc_html( WEBDADOS_FB_VERSION ); ?>)
 		<?php do_action( 'fb_og_admin_settings_title' ); ?>
-	</h1><br class="clear"/>
-	<p><?php esc_html_e( 'Please set some default values and which tags should, or should not, be included. It may be necessary to exclude some tags if other plugins are already including them.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
+	</h1>
+	<p class="webdados-fb-page-intro"><?php esc_html_e( 'Please set some default values and which tags should, or should not, be included. It may be necessary to exclude some tags if other plugins are already including them.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
 
 	<div class="columns-2 webdados_fb_admin_left" id="post-body">
 		<div class="menu_div metabox-holder" id="tabs">
@@ -86,12 +88,12 @@ $out_link_utm = '?utm_source=' . urlencode( home_url() ) . '&amp;utm_medium=link
 								'file'  => 'options-page-general.php',
 							),
 							'2' => array(
-								'icon'  => '<i class="dashicons-before dashicons-facebook-alt"></i>',
-								'title' => __( 'Open Graph', 'wonderm00ns-simple-facebook-open-graph-tags' ),
+								'icon'  => '<i class="dashicons-before dashicons-share"></i>',
+								'title' => __( 'Social Sharing', 'wonderm00ns-simple-facebook-open-graph-tags' ),
 								'file'  => 'options-page-facebook.php',
 							),
 							'3' => array(
-								'icon'  => '<i class="dashicons-before dashicons-twitter"></i>',
+								'icon'  => webdados_fb_og_x_twitter_icon(),
 								'title' => __( 'Cards', 'wonderm00ns-simple-facebook-open-graph-tags' ),
 								'file'  => 'options-page-twitter.php',
 							),
@@ -136,7 +138,7 @@ $out_link_utm = '?utm_source=' . urlencode( home_url() ) . '&amp;utm_medium=link
 							?>
 							<li>
 								<a class="nav-tab" href="#tabs-<?php echo esc_attr( $key ); ?>" data-tab-index="<?php echo intval( $index ); ?>">
-									<?php echo wp_kses_post( $tab['icon'] ); ?>
+									<?php echo wp_kses( $tab['icon'], webdados_fb_og_admin_tab_icon_kses() ); ?>
 									<?php echo wp_kses_post( $tab['title'] ); ?>
 								</a>
 							</li>

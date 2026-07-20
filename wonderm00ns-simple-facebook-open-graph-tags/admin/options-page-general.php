@@ -195,24 +195,29 @@ global $webdados_fb;
 					<tr>
 						<th><?php esc_html_e( 'On Post/Page, use image from', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
 						<td>
-							<div>
-								1) <input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_specific]" id="fb_image_use_specific" value="1" <?php echo ( intval( $options['fb_image_use_specific'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
+							<div class="fb-checkbox-row">
+								<span class="fb-checkbox-num">1)</span>
+								<input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_specific]" id="fb_image_use_specific" value="1" <?php echo ( intval( $options['fb_image_use_specific'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
 								<small><?php esc_html_e( '"Open Graph Image" custom field on the post', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></small>
 							</div>
-							<div>
-								2) <input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_featured]" id="fb_image_use_featured" value="1" <?php echo ( intval( $options['fb_image_use_featured'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
+							<div class="fb-checkbox-row">
+								<span class="fb-checkbox-num">2)</span>
+								<input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_featured]" id="fb_image_use_featured" value="1" <?php echo ( intval( $options['fb_image_use_featured'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
 								<small><?php esc_html_e( 'Post/page featured image', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></small>
 							</div>
-							<div>
-								3) <input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_content]" id="fb_image_use_content" value="1" <?php echo ( intval( $options['fb_image_use_content'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
+							<div class="fb-checkbox-row">
+								<span class="fb-checkbox-num">3)</span>
+								<input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_content]" id="fb_image_use_content" value="1" <?php echo ( intval( $options['fb_image_use_content'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
 								<small><?php esc_html_e( 'First image from the post/page content', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></small>
 							</div>
-							<div>
-								4) <input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_media]" id="fb_image_use_media" value="1" <?php echo ( intval( $options['fb_image_use_media'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
+							<div class="fb-checkbox-row">
+								<span class="fb-checkbox-num">4)</span>
+								<input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_media]" id="fb_image_use_media" value="1" <?php echo ( intval( $options['fb_image_use_media'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
 								<small><?php esc_html_e( 'First image from the post/page media gallery', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></small>
 							</div>
-							<div>
-								5) <input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_default]" id="fb_image_use_default" value="1" <?php echo ( intval( $options['fb_image_use_default'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
+							<div class="fb-checkbox-row">
+								<span class="fb-checkbox-num">5)</span>
+								<input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_use_default]" id="fb_image_use_default" value="1" <?php echo ( intval( $options['fb_image_use_default'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
 								<small><?php esc_html_e( 'Default image specified above', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></small>
 							</div>
 							<!-- mShots not working on Facebook - Needs more testing -->

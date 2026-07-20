@@ -15,14 +15,65 @@ defined( 'ABSPATH' ) || exit;
 
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound,WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
+require_once __DIR__ . '/open-graph-platform-icons.php';
+
+$og_platform_icon_kses = webdados_fb_og_platform_icon_kses();
+$og_platforms          = webdados_fb_og_get_platforms();
+
 ?>
 <div class="menu_containt_div" id="tabs-2">
-	<p><?php esc_html_e( 'Open Graph tags used by Facebook, and other social networks, to render link share posts.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
+
+	<div class="og-tab-intro">
+		<h2 class="og-tab-intro__title">
+			<?php esc_html_e( 'Social Sharing', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
+		</h2>
+		<p class="og-tab-intro__desc">
+			<?php
+			echo wp_kses_post(
+				sprintf(
+					/* translators: %s: example Open Graph meta tag names. */
+					__( 'Control how your links look when they\'re shared on social apps and chat tools. This tab sets <strong>Open Graph meta tags</strong> (%s) — the standard format hundreds of apps use to build link previews.', 'wonderm00ns-simple-facebook-open-graph-tags' ),
+					'<code>og:title</code>, <code>og:description</code>, <code>og:image</code>, ' . esc_html__( 'and more', 'wonderm00ns-simple-facebook-open-graph-tags' )
+				)
+			);
+			?>
+		</p>
+	</div>
+
+	<div class="og-platforms-wrap">
+		<div class="og-platforms-box">
+			<p class="og-platforms-label"><?php esc_html_e( 'Used for social sharing on:', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
+			<ul class="og-platforms" aria-label="<?php esc_attr_e( 'Social platforms that use Open Graph', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>">
+				<?php
+				foreach ( $og_platforms as $slug => $platform ) {
+					printf(
+						'<li><span class="og-platform og-platform--%1$s"><span class="og-platform__icon">%2$s</span><span class="og-platform__name">%3$s</span></span></li>',
+						esc_attr( $slug ),
+						wp_kses( $platform['icon'], $og_platform_icon_kses ),
+						esc_html( $platform['label'] )
+					);
+				}
+				?>
+				<li><span class="og-platform og-platform--more"><span class="og-platform__name"><?php esc_html_e( '+ more', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></span></span></li>
+			</ul>
+			<p class="og-platform-note">
+				<?php esc_html_e( 'Instagram and others use Open Graph for link shares; in-app features (Stories, Reels) may use different rules.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
+			</p>
+		</div>
+	</div>
+
+	<div class="og-notice og-notice-warning" role="note">
+		<strong><?php esc_html_e( 'Heads up:', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></strong>
+		<?php esc_html_e( 'You configure tags once here; each platform decides how to display them. We don\'t connect to Facebook, LinkedIn, or Reddit APIs — your site publishes the tags, and their crawlers read them.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
+	</div>
 
 	<?php do_action( 'fb_og_admin_settings_facebook_before' ); ?>
 
 	<div class="postbox">
-		<h3 class="hndle"><i class="dashicons-before dashicons-facebook-alt"></i> <?php esc_html_e( 'Facebook Open Graph Tags', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></h3>
+		<div class="fb-postbox-header">
+			<h3 class="hndle"><i class="dashicons-before dashicons-admin-links"></i> <?php esc_html_e( 'Open Graph tags (shared across platforms)', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></h3>
+			<p class="og-section-desc"><?php esc_html_e( 'One set of tags → many networks. Enable the fields below to improve previews wherever Open Graph is supported.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
+		</div>
 		<div class="inside">
 			<table class="form-table">
 				<tbody>
@@ -253,32 +304,6 @@ defined( 'ABSPATH' ) || exit;
 					</tr>
 					
 					<tr>
-						<th><?php esc_html_e( 'Include Publisher', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
-						<td>
-							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_publisher_show]" id="fb_publisher_show" value="1" <?php echo ( intval( $options['fb_publisher_show'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="info">
-							<i>&lt;meta property="article:publisher" content="..."/&gt;</i>
-							<br/>
-							- <?php esc_html_e( 'The website\'s Facebook Page', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
-						</td>
-					</tr>
-					
-					<tr class="fb_publisher_options">
-						<th><?php esc_html_e( 'Website\'s Facebook Page', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
-						<td>
-							<input type="text" name="wonderm00n_open_graph_settings[fb_publisher]" id="fb_publisher" size="50" value="<?php echo esc_attr( trim( $options['fb_publisher'] ) ); ?>"/>
-						</td>
-					</tr>
-					<tr class="fb_publisher_options">
-						<td colspan="2" class="info">
-							- <?php esc_html_e( 'Facebook Page URL (with https://)', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
-						</td>
-					</tr>
-					
-					<tr>
 						<th><a name="fblocale"></a><?php esc_html_e( 'Include Locale', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
 						<td>
 							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_locale_show]" id="fb_locale_show" value="1" <?php echo ( intval( $options['fb_locale_show'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
@@ -409,53 +434,6 @@ defined( 'ABSPATH' ) || exit;
 					</tr>
 					
 					<tr>
-						<th><?php esc_html_e( 'Include Facebook Admin(s) ID', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
-						<td>
-							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_admin_id_show]" id="fb_admin_id_show" value="1" <?php echo ( intval( $options['fb_admin_id_show'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="info">
-							<i>&lt;meta property="fb:admins" content="..."/&gt;</i>
-						</td>
-					</tr>
-					
-					<tr class="fb_admin_id_options">
-						<th><?php esc_html_e( 'Facebook Admin(s) ID', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
-						<td>
-							<input type="text" name="wonderm00n_open_graph_settings[fb_admin_id]" id="fb_admin_id" size="50" value="<?php echo esc_attr( trim( $options['fb_admin_id'] ) ); ?>"/>
-						</td>
-					</tr>
-					<tr class="fb_admin_id_options">
-						<td colspan="2" class="info">
-							- <?php esc_html_e( 'Comma separated if more than one', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
-						</td>
-					</tr>
-					
-					<tr>
-						<th><?php esc_html_e( 'Include Facebook Platform App ID', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
-						<td>
-							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_app_id_show]" id="fb_app_id_show" value="1" <?php echo ( intval( $options['fb_app_id_show'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="info">
-							<i>&lt;meta property="fb:app_id" content="..."/&gt;</i>
-						</td>
-					</tr>
-					
-					<tr class="fb_app_id_options">
-						<th><?php esc_html_e( 'Facebook Platform App ID', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
-						<td>
-							<input type="text" name="wonderm00n_open_graph_settings[fb_app_id]" id="fb_app_id" size="50" value="<?php echo esc_attr( trim( $options['fb_app_id'] ) ); ?>"/>
-						</td>
-					</tr>
-					<tr class="fb_app_id_options">
-						<td colspan="2" class="info">
-							- <?php esc_html_e( 'From your Facebook Developers dashboard', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
-						</td>
-					</tr>
-					<tr>
 						<th><?php esc_html_e( 'Declaration Method', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
 						<td>
 							<select name="wonderm00n_open_graph_settings[fb_declaration_method]" id="fb_declaration_method">
@@ -486,8 +464,97 @@ defined( 'ABSPATH' ) || exit;
 			</table>
 		</div>
 	</div>
+
 	<div class="postbox">
-		<h3 class="hndle"><i class="dashicons-before dashicons-portfolio"></i> <?php esc_html_e( 'Facebook Open Graph Tags cache', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></h3>
+		<div class="fb-postbox-header">
+			<h3 class="hndle"><i class="dashicons-before dashicons-facebook-alt"></i> <?php esc_html_e( 'Facebook-only options', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></h3>
+			<p class="og-section-desc"><?php esc_html_e( 'Add-on settings and properties — from publisher to referral — for snippets on Facebook.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
+		</div>
+		<div class="inside">
+			<table class="form-table">
+				<tbody>
+
+					<tr>
+						<th><?php esc_html_e( 'Include Publisher', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
+						<td>
+							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_publisher_show]" id="fb_publisher_show" value="1" <?php echo ( intval( $options['fb_publisher_show'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="info">
+							<i>&lt;meta property="article:publisher" content="..."/&gt;</i>
+							<br/>
+							- <?php esc_html_e( 'The website\'s Facebook Page', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
+						</td>
+					</tr>
+
+					<tr class="fb_publisher_options">
+						<th><?php esc_html_e( 'Website\'s Facebook Page', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
+						<td>
+							<input type="text" name="wonderm00n_open_graph_settings[fb_publisher]" id="fb_publisher" size="50" value="<?php echo esc_attr( trim( $options['fb_publisher'] ) ); ?>"/>
+						</td>
+					</tr>
+					<tr class="fb_publisher_options">
+						<td colspan="2" class="info">
+							- <?php esc_html_e( 'Facebook Page URL (with https://)', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
+						</td>
+					</tr>
+
+					<tr>
+						<th><?php esc_html_e( 'Include Facebook Admin(s) ID', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
+						<td>
+							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_admin_id_show]" id="fb_admin_id_show" value="1" <?php echo ( intval( $options['fb_admin_id_show'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="info">
+							<i>&lt;meta property="fb:admins" content="..."/&gt;</i>
+						</td>
+					</tr>
+
+					<tr class="fb_admin_id_options">
+						<th><?php esc_html_e( 'Facebook Admin(s) ID', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
+						<td>
+							<input type="text" name="wonderm00n_open_graph_settings[fb_admin_id]" id="fb_admin_id" size="50" value="<?php echo esc_attr( trim( $options['fb_admin_id'] ) ); ?>"/>
+						</td>
+					</tr>
+					<tr class="fb_admin_id_options">
+						<td colspan="2" class="info">
+							- <?php esc_html_e( 'Comma separated if more than one', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
+						</td>
+					</tr>
+
+					<tr>
+						<th><?php esc_html_e( 'Include Facebook Platform App ID', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
+						<td>
+							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_app_id_show]" id="fb_app_id_show" value="1" <?php echo ( intval( $options['fb_app_id_show'] ) == 1 ? ' checked="checked"' : '' ); ?>/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="info">
+							<i>&lt;meta property="fb:app_id" content="..."/&gt;</i>
+						</td>
+					</tr>
+
+					<tr class="fb_app_id_options">
+						<th><?php esc_html_e( 'Facebook Platform App ID', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>:</th>
+						<td>
+							<input type="text" name="wonderm00n_open_graph_settings[fb_app_id]" id="fb_app_id" size="50" value="<?php echo esc_attr( trim( $options['fb_app_id'] ) ); ?>"/>
+						</td>
+					</tr>
+					<tr class="fb_app_id_options">
+						<td colspan="2" class="info">
+							- <?php esc_html_e( 'From your Facebook Developers dashboard', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="postbox">
+		<h3 class="hndle"><i class="dashicons-before dashicons-update"></i> <?php esc_html_e( 'Facebook Open Graph Tags cache', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></h3>
 		<div class="inside">
 			<table class="form-table">
 				<tbody>

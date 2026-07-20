@@ -17,12 +17,15 @@ defined( 'ABSPATH' ) || exit;
 
 ?>
 <div class="menu_containt_div" id="tabs-3">
-	<p><?php esc_html_e( 'Tags used by Twitter to render their Cards.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
+	<p><?php esc_html_e( 'Tags used by X(Twitter) to render their Cards.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
 
 	<?php do_action( 'fb_og_admin_settings_twitter_before' ); ?>
 
 	<div class="postbox">
-		<h3 class="hndle"><i class="dashicons-before dashicons-twitter"></i> <?php esc_html_e( 'Twitter Card Tags', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></h3>
+		<div class="fb-postbox-header">
+			<h3 class="hndle"><?php echo wp_kses( webdados_fb_og_x_twitter_icon(), webdados_fb_og_platform_icon_kses() ); ?> <?php esc_html_e( 'X(Twitter) Card Tags', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></h3>
+			<p class="og-section-desc"><?php esc_html_e( 'Title, description, image, author, publisher, and card type.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
+		</div>
 		<div class="inside">
 			<table class="form-table">
 				<tbody>
@@ -45,6 +48,8 @@ defined( 'ABSPATH' ) || exit;
 									'fb_og_title'
 								);
 								?>
+							<br/>
+							- <?php esc_html_e( 'When disabled, an empty twitter:title tag is output so X/Twitter and preview tools do not fall back to og:title.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
 						</td>
 					</tr>
 					
@@ -87,6 +92,8 @@ defined( 'ABSPATH' ) || exit;
 								'fb_og_desc'
 							);
 							?>
+							<br/>
+							- <?php esc_html_e( 'When disabled, an empty twitter:description tag is output so X/Twitter and preview tools do not fall back to og:description.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
 						</td>
 					</tr>
 					

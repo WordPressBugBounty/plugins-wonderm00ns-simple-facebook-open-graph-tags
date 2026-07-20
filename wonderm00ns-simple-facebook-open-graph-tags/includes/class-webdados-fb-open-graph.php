@@ -398,7 +398,7 @@ if ( ! class_exists( 'Webdados_FB' ) ) :
 			// WPML - Translate options.
 			add_action( 'update_option_wonderm00n_open_graph_settings', array( $plugin_admin, 'options_wpml' ), 10, 3 );
 			// Settings link on the Plugins list.
-			add_filter( 'plugin_action_links_wonderm00ns-simple-facebook-open-graph-tags/wonderm00n-open-graph.php', array( $plugin_admin, 'place_settings_link' ) );
+			add_filter( 'plugin_action_links_' . plugin_basename( WEBDADOS_FB_PLUGIN_FILE ), array( $plugin_admin, 'place_settings_link' ) );
 			// User Facebook, Google+ and Twitter profiles.
 			add_action( 'user_contactmethods', array( $plugin_admin, 'user_contactmethods' ) );
 			// Add metabox to posts.
