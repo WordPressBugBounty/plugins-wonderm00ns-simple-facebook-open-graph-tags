@@ -6,7 +6,7 @@ Author URI: https://wpexperts.io/
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -440,6 +440,10 @@ We like to work with everybody, so (if you want to) our plugin can even integrat
 8. Tools screen for clearing cached image dimensions and troubleshooting preview image issues.
 
 == Changelog ==
+= 3.5.1 - July 29, 2026 =
+* Fixed plugin auto-deactivation after update ("Plugin file does not exist") caused by the 3.5.0 main file rename.
+* Restored `wonderm00n-open-graph.php` as the canonical bootstrap and migrate activations from the temporary 3.5.0 filename.
+
 = 3.5.0 - July 17, 2026 =
 * Improved plugin's settings interface has been fully redesigned for a cleaner, more intuitive experience.
 
@@ -1015,3 +1019,8 @@ We like to work with everybody, so (if you want to) our plugin can even integrat
 = 0.1 =
 
 * First release.
+
+== Upgrade Notice ==
+
+= 3.5.1 =
+🚨 **Important:** Users updating from **v3.5.0** to **v3.5.1** should **manually reactivate the plugin** after updating. If you're updating from a version **earlier than v3.5.0**, you can ignore this notice.
